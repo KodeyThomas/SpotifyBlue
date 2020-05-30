@@ -1,0 +1,9 @@
+Package: tech.kodeycodesstuff.spotifyblue
+Name: SpotifyBlue
+Depends: mobilesubstrate
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Opens Spotify When you Connect a Bluetooth audio device.
+Maintainer: Kodey Thomas
+Author: Kodey Thomas
+Section: Tweaks
