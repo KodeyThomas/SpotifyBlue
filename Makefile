@@ -9,7 +9,7 @@ TWEAK_NAME = SpotifyBlue
 
 $(TWEAK_NAME)_FILES = Tweak.x
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc
-$(TWEAK_NAME)_FRAMEWORK = UIKit
+$(TWEAK_NAME)_FRAMEWORK = UIKit 
 $(TWEAK_NAME)_PRIVATE_FRAMEWORK = BluetoothManager
 
 include $(THEOS_MAKE_PATH)/tweak.mk

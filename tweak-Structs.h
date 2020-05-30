@@ -1,3 +1,5 @@
+// this is BluetoothManager-Structs.h renamed again for file management
+
 typedef struct BTDeviceImpl* BTDeviceImplRef;
 
 typedef struct _NSZone* NSZoneRef;

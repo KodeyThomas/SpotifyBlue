@@ -1,3 +1,5 @@
+// this is the header file from BluetoothManager.h renamed for file management purposes
+
 #import <tweak-Structs.h>
 @class NSString;
 
