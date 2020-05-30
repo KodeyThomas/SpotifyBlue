@@ -28,28 +28,20 @@ BOOL runBefore = NO;
 // obj-c doesnt use TRUE and FALSE it uses YES and NO
 -(BOOL)connected { 
  
-	BOOL r = %orig; 
+	// isDeviceConnected is the same value as our Boolan connected
+	BOOL isDeviceConnected = %orig; 
 
-	// if the boolan is TRUE open spotify
-	if (r == YES)
+	// if the boolan is TRUE open spotify AND runBefore is false
+	if (isDeviceConnected == YES && runBefore == NO)
 
-		// opens spotify (if it hasnt been opened before by the tweak)
-		// we do this by checking if it has been runBefore if no we open spotify
-		if (runBefore == NO)
+		//opens spotify
+		[[UIApplication sharedApplication] launchApplicationWithIdentifier:@"com.spotify.client" suspended:FALSE];
 
-			// we call UIApplication and launch the method 'launchApplicationWithIdentifier'
-			// it takes two arguments, the BundleID of the app we want to open and want to launch the app not suspended
-			[[UIApplication sharedApplication] launchApplicationWithIdentifier:@"com.spotify.client" suspended:FALSE];
-			runBefore = YES;
+		// say that we have run our modified code and too not open spotify again until runBefore is False
+		runBefore = YES; 
 
-		// exec orignal code
-		return r;
-	
-	// if the boolan is FALSE do nothing
-	if (r == NO)
-
-		// exec orginal code
-		return r;
+		// returns the value back to the method
+		return isDeviceConnected;
 
 }
 	
@@ -58,8 +50,9 @@ BOOL runBefore = NO;
 // we now want too hook into the class SBBluetoothController to detect when we disconnect our bluetooth speaker or we change our output
 %hook SBBluetoothController
 
-// looking through SBBluetoothController.h there is a method that notes when devices are changed, such as connecting or disconnecting
--(void)noteDevicesChanged { 
+
+// looking through SBBluetoothController.h there is a method that when a device disconnects
+-(void)removeDeviceNotification:(id)arg1 { 
 	
 	// set out runBefore variable to false so the method can launch spotify when we reconnect our bluetooth speaker
 	runBefore = NO;
