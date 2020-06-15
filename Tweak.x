@@ -37,6 +37,7 @@ BOOL runBefore = NO;
 BOOL isEnabled;
 BOOL spotifyEnabled;
 BOOL appleEnabled;
+BOOL soundcloudEnabled;
 
 // this hooks into the class BluetoothDevice from the BluetoothManager framework
 %hook BluetoothDevice
@@ -78,6 +79,20 @@ BOOL appleEnabled;
         return isDeviceConnected;
 
       }
+
+      if(soundcloudEnabled) {
+
+        //opens soundcloud
+        [[UIApplication sharedApplication] launchApplicationWithIdentifier:@"com.soundcloud.AppTouch" suspended:FALSE];
+
+        // say that we have run our modified code and too not open soundcloud again until runBefore is False
+        runBefore = YES;
+
+        // returns the value back to the method
+        return isDeviceConnected;
+
+      }
+
     }
   }
 
@@ -122,5 +137,8 @@ BOOL appleEnabled;
 
   // checks to see if the user wants to open apple music instead of spotify
   [preferences registerBool:&appleEnabled default:YES forKey:@"appleEnabled"];
+
+  // checks to see if the user wants to open soundcloud instead apple music or spotify
+  [preferences registerBool:&soundcloudEnabled default:YES forKey:@"soundcloudEnabled"];
 
 }
